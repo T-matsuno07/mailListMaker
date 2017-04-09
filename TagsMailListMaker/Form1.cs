@@ -1721,5 +1721,15 @@ namespace TagsMailListMaker
 
         }
 
+        private void guiBtn_TagDeleteTagItem_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+            if ((guiBtn_MemberRegister.Enabled == true) || (guiBtn_TagsRegister.Enabled == true) )
+            {
+                MessageBox.Show("項目編集中はタブを切り替えできません。\r\n編集内容を登録/更新で確定するか、\r\nキャンセルで取り消してください。",
+                    "タブ切り替え不可能",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                e.Cancel = true;
+            }
+        }
+
     }
 }

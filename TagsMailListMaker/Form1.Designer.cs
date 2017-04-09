@@ -157,6 +157,7 @@
             this.guiBtn_TagDeleteTagItem.SelectedIndex = 0;
             this.guiBtn_TagDeleteTagItem.Size = new System.Drawing.Size(758, 549);
             this.guiBtn_TagDeleteTagItem.TabIndex = 2;
+            this.guiBtn_TagDeleteTagItem.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.guiBtn_TagDeleteTagItem_Selecting);
             // 
             // guiTabPage_Main
             // 
@@ -746,7 +747,6 @@
             this.guiBtn_MemberDelete.TabIndex = 27;
             this.guiBtn_MemberDelete.Text = "削除";
             this.guiBtn_MemberDelete.UseVisualStyleBackColor = true;
-            this.guiBtn_MemberDelete.Click += new System.EventHandler(this.guiBtn_MemberDelete_Click);
             // 
             // guiBtn_MmberDeleteTagItem
             // 
