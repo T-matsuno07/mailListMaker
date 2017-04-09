@@ -1446,6 +1446,9 @@ namespace TagsMailListMaker
                     lib_XmlLINQ.deleteLINQ(dsDataBase, "Groups", "Name = '" + strDeleteName + "'");
                     InitializeMemberTab();
                     flg_DataBaseUpdate = true;
+
+                    InitializeTagTab();
+                    guiCob_TagMotoMem_SelectedIndexChanged(sender, e);
                 }
             }
         }
@@ -1468,12 +1471,13 @@ namespace TagsMailListMaker
                     SwitchTagTabControlEnabled(true);
                     guiTeb_EditTag.Text = string.Empty;
                     guiList_TagRegistSaki.Items.Clear();
-                    InitializeTagTab();
+
                     // メインtabを初期化
                     initializeMainTab();
                     InitializeMemberTab();
                     InitializeTagTab();
                     flg_DataBaseUpdate = true;
+                    guiCob_MembersMotoMem_SelectedIndexChanged(sender,e);
                 }
             }
             else
@@ -1488,6 +1492,11 @@ namespace TagsMailListMaker
                     // メインtabを初期化
                     initializeMainTab();
                     flg_DataBaseUpdate = true;
+                    // メインtabを初期化
+                    InitializeMemberTab();
+                    InitializeTagTab();
+                    flg_DataBaseUpdate = true;
+                    guiCob_MembersMotoMem_SelectedIndexChanged(sender, e);
                 }
             }
 
