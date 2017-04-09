@@ -5,7 +5,7 @@
 即座に作成するツールです。
 
 ## 実行ファイル
-
+[mailListMaker.zip](/ExecuteBin/mailListMaker.zip)
 
 ## 著作権について
 本ソフトウェアは、フリーソフトウェアであり、  
