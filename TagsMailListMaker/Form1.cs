@@ -33,6 +33,13 @@ namespace TagsMailListMaker
         public frm_TagsMailListMaker()
         {
             InitializeComponent();
+
+            //フォームの最大化ボタンを非表示にする
+            this.MaximizeBox = false;
+
+            // フォームのサイズを固定する
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            
             strExePath = System.Windows.Forms.Application.StartupPath;
             strXmlPath = strExePath + @"\MailDataBase";
             lib_XmlLINQ.importXmlFiles(out dsDataBase, strXmlPath);
