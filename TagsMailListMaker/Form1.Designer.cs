@@ -32,6 +32,9 @@
             this.guiList_CcMember = new System.Windows.Forms.ListBox();
             this.guiBtn_TagDeleteTagItem = new System.Windows.Forms.TabControl();
             this.guiTabPage_Main = new System.Windows.Forms.TabPage();
+            this.guiBut_MainTagMake_Cc = new System.Windows.Forms.Button();
+            this.guiBut_MainTagMake_To = new System.Windows.Forms.Button();
+            this.guiBut_MainTagMake_Moto = new System.Windows.Forms.Button();
             this.guiBtn_TagYesNo5 = new System.Windows.Forms.Button();
             this.guiBtn_TagYesNo4 = new System.Windows.Forms.Button();
             this.guiCmb_TagCondition5 = new System.Windows.Forms.ComboBox();
@@ -77,6 +80,7 @@
             this.guiBtn_MotoListCreate = new System.Windows.Forms.Button();
             this.guiCmb_TagCondition1 = new System.Windows.Forms.ComboBox();
             this.tguiTabPage_Name = new System.Windows.Forms.TabPage();
+            this.guiBtn_MemberChangeSort = new System.Windows.Forms.Button();
             this.guiBtn_MemberSleep = new System.Windows.Forms.Button();
             this.guiBtn_MemberDelete = new System.Windows.Forms.Button();
             this.guiBtn_MmberDeleteTagItem = new System.Windows.Forms.Button();
@@ -96,6 +100,7 @@
             this.guiBtn_MemberCall = new System.Windows.Forms.Button();
             this.guiCob_MembersMain = new System.Windows.Forms.ComboBox();
             this.guiTabPage_Tab = new System.Windows.Forms.TabPage();
+            this.guiBtn_TagChangeSort = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.guiTeb_EditTag = new System.Windows.Forms.TextBox();
             this.guiBtn_TagDeleteOneMember = new System.Windows.Forms.Button();
@@ -111,8 +116,7 @@
             this.guiBtn_TagsRegister = new System.Windows.Forms.Button();
             this.guiBtn_TagsCall = new System.Windows.Forms.Button();
             this.guiCob_TagsMain = new System.Windows.Forms.ComboBox();
-            this.guiBtn_MemberChangeSort = new System.Windows.Forms.Button();
-            this.guiBtn_TagChangeSort = new System.Windows.Forms.Button();
+            this.guiChck_AlwayFront = new System.Windows.Forms.CheckBox();
             this.guiBtn_TagDeleteTagItem.SuspendLayout();
             this.guiTabPage_Main.SuspendLayout();
             this.tguiTabPage_Name.SuspendLayout();
@@ -148,15 +152,18 @@
             this.guiBtn_TagDeleteTagItem.Controls.Add(this.guiTabPage_Main);
             this.guiBtn_TagDeleteTagItem.Controls.Add(this.tguiTabPage_Name);
             this.guiBtn_TagDeleteTagItem.Controls.Add(this.guiTabPage_Tab);
-            this.guiBtn_TagDeleteTagItem.Location = new System.Drawing.Point(8, 12);
+            this.guiBtn_TagDeleteTagItem.Location = new System.Drawing.Point(8, 32);
             this.guiBtn_TagDeleteTagItem.Name = "guiBtn_TagDeleteTagItem";
             this.guiBtn_TagDeleteTagItem.SelectedIndex = 0;
-            this.guiBtn_TagDeleteTagItem.Size = new System.Drawing.Size(758, 536);
+            this.guiBtn_TagDeleteTagItem.Size = new System.Drawing.Size(758, 549);
             this.guiBtn_TagDeleteTagItem.TabIndex = 2;
             // 
             // guiTabPage_Main
             // 
             this.guiTabPage_Main.BackColor = System.Drawing.SystemColors.Control;
+            this.guiTabPage_Main.Controls.Add(this.guiBut_MainTagMake_Cc);
+            this.guiTabPage_Main.Controls.Add(this.guiBut_MainTagMake_To);
+            this.guiTabPage_Main.Controls.Add(this.guiBut_MainTagMake_Moto);
             this.guiTabPage_Main.Controls.Add(this.guiBtn_TagYesNo5);
             this.guiTabPage_Main.Controls.Add(this.guiBtn_TagYesNo4);
             this.guiTabPage_Main.Controls.Add(this.guiCmb_TagCondition5);
@@ -206,9 +213,39 @@
             this.guiTabPage_Main.Location = new System.Drawing.Point(4, 22);
             this.guiTabPage_Main.Name = "guiTabPage_Main";
             this.guiTabPage_Main.Padding = new System.Windows.Forms.Padding(3);
-            this.guiTabPage_Main.Size = new System.Drawing.Size(750, 510);
+            this.guiTabPage_Main.Size = new System.Drawing.Size(750, 523);
             this.guiTabPage_Main.TabIndex = 0;
             this.guiTabPage_Main.Text = "メイン";
+            // 
+            // guiBut_MainTagMake_Cc
+            // 
+            this.guiBut_MainTagMake_Cc.Location = new System.Drawing.Point(543, 494);
+            this.guiBut_MainTagMake_Cc.Name = "guiBut_MainTagMake_Cc";
+            this.guiBut_MainTagMake_Cc.Size = new System.Drawing.Size(181, 23);
+            this.guiBut_MainTagMake_Cc.TabIndex = 49;
+            this.guiBut_MainTagMake_Cc.Text = "上記メンバーでタググループ作成";
+            this.guiBut_MainTagMake_Cc.UseVisualStyleBackColor = true;
+            this.guiBut_MainTagMake_Cc.Click += new System.EventHandler(this.guiBut_MainTagMake_Cc_Click);
+            // 
+            // guiBut_MainTagMake_To
+            // 
+            this.guiBut_MainTagMake_To.Location = new System.Drawing.Point(327, 494);
+            this.guiBut_MainTagMake_To.Name = "guiBut_MainTagMake_To";
+            this.guiBut_MainTagMake_To.Size = new System.Drawing.Size(182, 23);
+            this.guiBut_MainTagMake_To.TabIndex = 48;
+            this.guiBut_MainTagMake_To.Text = "上記メンバーでタググループ作成";
+            this.guiBut_MainTagMake_To.UseVisualStyleBackColor = true;
+            this.guiBut_MainTagMake_To.Click += new System.EventHandler(this.guiBut_MainTagMake_To_Click);
+            // 
+            // guiBut_MainTagMake_Moto
+            // 
+            this.guiBut_MainTagMake_Moto.Location = new System.Drawing.Point(9, 494);
+            this.guiBut_MainTagMake_Moto.Name = "guiBut_MainTagMake_Moto";
+            this.guiBut_MainTagMake_Moto.Size = new System.Drawing.Size(192, 23);
+            this.guiBut_MainTagMake_Moto.TabIndex = 47;
+            this.guiBut_MainTagMake_Moto.Text = "上記メンバーでタググループ作成";
+            this.guiBut_MainTagMake_Moto.UseVisualStyleBackColor = true;
+            this.guiBut_MainTagMake_Moto.Click += new System.EventHandler(this.guiBut_MainTagMake_Moto_Click);
             // 
             // guiBtn_TagYesNo5
             // 
@@ -375,7 +412,7 @@
             // guiBtn_DeleteAllCc
             // 
             this.guiBtn_DeleteAllCc.ForeColor = System.Drawing.Color.DarkGreen;
-            this.guiBtn_DeleteAllCc.Location = new System.Drawing.Point(543, 461);
+            this.guiBtn_DeleteAllCc.Location = new System.Drawing.Point(543, 465);
             this.guiBtn_DeleteAllCc.Name = "guiBtn_DeleteAllCc";
             this.guiBtn_DeleteAllCc.Size = new System.Drawing.Size(87, 23);
             this.guiBtn_DeleteAllCc.TabIndex = 30;
@@ -386,7 +423,7 @@
             // guiBtn_DeleteAllTo
             // 
             this.guiBtn_DeleteAllTo.ForeColor = System.Drawing.Color.Blue;
-            this.guiBtn_DeleteAllTo.Location = new System.Drawing.Point(327, 461);
+            this.guiBtn_DeleteAllTo.Location = new System.Drawing.Point(327, 465);
             this.guiBtn_DeleteAllTo.Name = "guiBtn_DeleteAllTo";
             this.guiBtn_DeleteAllTo.Size = new System.Drawing.Size(87, 23);
             this.guiBtn_DeleteAllTo.TabIndex = 29;
@@ -397,7 +434,7 @@
             // guiBtn_DeleteOneCc
             // 
             this.guiBtn_DeleteOneCc.ForeColor = System.Drawing.Color.DarkGreen;
-            this.guiBtn_DeleteOneCc.Location = new System.Drawing.Point(639, 461);
+            this.guiBtn_DeleteOneCc.Location = new System.Drawing.Point(639, 465);
             this.guiBtn_DeleteOneCc.Name = "guiBtn_DeleteOneCc";
             this.guiBtn_DeleteOneCc.Size = new System.Drawing.Size(85, 23);
             this.guiBtn_DeleteOneCc.TabIndex = 28;
@@ -430,7 +467,7 @@
             // guiBtn_DeleteOneTo
             // 
             this.guiBtn_DeleteOneTo.ForeColor = System.Drawing.Color.Blue;
-            this.guiBtn_DeleteOneTo.Location = new System.Drawing.Point(427, 461);
+            this.guiBtn_DeleteOneTo.Location = new System.Drawing.Point(427, 465);
             this.guiBtn_DeleteOneTo.Name = "guiBtn_DeleteOneTo";
             this.guiBtn_DeleteOneTo.Size = new System.Drawing.Size(82, 23);
             this.guiBtn_DeleteOneTo.TabIndex = 24;
@@ -621,7 +658,7 @@
             this.guiList_MotoList.Location = new System.Drawing.Point(8, 208);
             this.guiList_MotoList.Name = "guiList_MotoList";
             this.guiList_MotoList.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.guiList_MotoList.Size = new System.Drawing.Size(193, 292);
+            this.guiList_MotoList.Size = new System.Drawing.Size(193, 280);
             this.guiList_MotoList.TabIndex = 5;
             this.guiList_MotoList.DoubleClick += new System.EventHandler(this.guiList_MotoList_DoubleClick);
             // 
@@ -677,9 +714,19 @@
             this.tguiTabPage_Name.Location = new System.Drawing.Point(4, 22);
             this.tguiTabPage_Name.Name = "tguiTabPage_Name";
             this.tguiTabPage_Name.Padding = new System.Windows.Forms.Padding(3);
-            this.tguiTabPage_Name.Size = new System.Drawing.Size(750, 510);
+            this.tguiTabPage_Name.Size = new System.Drawing.Size(750, 523);
             this.tguiTabPage_Name.TabIndex = 1;
             this.tguiTabPage_Name.Text = "メンバー";
+            // 
+            // guiBtn_MemberChangeSort
+            // 
+            this.guiBtn_MemberChangeSort.Location = new System.Drawing.Point(534, 9);
+            this.guiBtn_MemberChangeSort.Name = "guiBtn_MemberChangeSort";
+            this.guiBtn_MemberChangeSort.Size = new System.Drawing.Size(80, 33);
+            this.guiBtn_MemberChangeSort.TabIndex = 29;
+            this.guiBtn_MemberChangeSort.Text = "並び換え";
+            this.guiBtn_MemberChangeSort.UseVisualStyleBackColor = true;
+            this.guiBtn_MemberChangeSort.Click += new System.EventHandler(this.guiBtn_MemberChangeSort_Click);
             // 
             // guiBtn_MemberSleep
             // 
@@ -689,6 +736,7 @@
             this.guiBtn_MemberSleep.TabIndex = 28;
             this.guiBtn_MemberSleep.Text = "凍結";
             this.guiBtn_MemberSleep.UseVisualStyleBackColor = true;
+            this.guiBtn_MemberSleep.Click += new System.EventHandler(this.guiBtn_MemberSleep_Click);
             // 
             // guiBtn_MemberDelete
             // 
@@ -876,10 +924,20 @@
             this.guiTabPage_Tab.Controls.Add(this.guiCob_TagsMain);
             this.guiTabPage_Tab.Location = new System.Drawing.Point(4, 22);
             this.guiTabPage_Tab.Name = "guiTabPage_Tab";
-            this.guiTabPage_Tab.Size = new System.Drawing.Size(750, 510);
+            this.guiTabPage_Tab.Size = new System.Drawing.Size(750, 523);
             this.guiTabPage_Tab.TabIndex = 2;
             this.guiTabPage_Tab.Text = "タグ";
             this.guiTabPage_Tab.Click += new System.EventHandler(this.guiTabPage_Tab_Click);
+            // 
+            // guiBtn_TagChangeSort
+            // 
+            this.guiBtn_TagChangeSort.Location = new System.Drawing.Point(528, 12);
+            this.guiBtn_TagChangeSort.Name = "guiBtn_TagChangeSort";
+            this.guiBtn_TagChangeSort.Size = new System.Drawing.Size(80, 30);
+            this.guiBtn_TagChangeSort.TabIndex = 34;
+            this.guiBtn_TagChangeSort.Text = "並び換え";
+            this.guiBtn_TagChangeSort.UseVisualStyleBackColor = true;
+            this.guiBtn_TagChangeSort.Click += new System.EventHandler(this.guiBtn_TagChangeSort_Click);
             // 
             // label2
             // 
@@ -1029,31 +1087,23 @@
             this.guiCob_TagsMain.Size = new System.Drawing.Size(264, 24);
             this.guiCob_TagsMain.TabIndex = 0;
             // 
-            // guiBtn_MemberChangeSort
+            // guiChck_AlwayFront
             // 
-            this.guiBtn_MemberChangeSort.Location = new System.Drawing.Point(534, 9);
-            this.guiBtn_MemberChangeSort.Name = "guiBtn_MemberChangeSort";
-            this.guiBtn_MemberChangeSort.Size = new System.Drawing.Size(80, 33);
-            this.guiBtn_MemberChangeSort.TabIndex = 29;
-            this.guiBtn_MemberChangeSort.Text = "並び換え";
-            this.guiBtn_MemberChangeSort.UseVisualStyleBackColor = true;
-            this.guiBtn_MemberChangeSort.Click += new System.EventHandler(this.guiBtn_MemberChangeSort_Click);
-            // 
-            // guiBtn_TagChangeSort
-            // 
-            this.guiBtn_TagChangeSort.Location = new System.Drawing.Point(528, 12);
-            this.guiBtn_TagChangeSort.Name = "guiBtn_TagChangeSort";
-            this.guiBtn_TagChangeSort.Size = new System.Drawing.Size(80, 30);
-            this.guiBtn_TagChangeSort.TabIndex = 34;
-            this.guiBtn_TagChangeSort.Text = "並び換え";
-            this.guiBtn_TagChangeSort.UseVisualStyleBackColor = true;
-            this.guiBtn_TagChangeSort.Click += new System.EventHandler(this.guiBtn_TagChangeSort_Click);
+            this.guiChck_AlwayFront.AutoSize = true;
+            this.guiChck_AlwayFront.Location = new System.Drawing.Point(8, 10);
+            this.guiChck_AlwayFront.Name = "guiChck_AlwayFront";
+            this.guiChck_AlwayFront.Size = new System.Drawing.Size(105, 16);
+            this.guiChck_AlwayFront.TabIndex = 47;
+            this.guiChck_AlwayFront.Text = "既に最前面表示";
+            this.guiChck_AlwayFront.UseVisualStyleBackColor = true;
+            this.guiChck_AlwayFront.CheckedChanged += new System.EventHandler(this.guiChck_AlwayFront_CheckedChanged);
             // 
             // frm_TagsMailListMaker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(778, 550);
+            this.ClientSize = new System.Drawing.Size(778, 583);
+            this.Controls.Add(this.guiChck_AlwayFront);
             this.Controls.Add(this.guiBtn_TagDeleteTagItem);
             this.Name = "frm_TagsMailListMaker";
             this.Text = "TagsMailListMaker";
@@ -1066,6 +1116,7 @@
             this.guiTabPage_Tab.ResumeLayout(false);
             this.guiTabPage_Tab.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -1156,6 +1207,10 @@
         private System.Windows.Forms.Label guilbl_MainCon4;
         private System.Windows.Forms.Button guiBtn_MemberChangeSort;
         private System.Windows.Forms.Button guiBtn_TagChangeSort;
+        private System.Windows.Forms.CheckBox guiChck_AlwayFront;
+        private System.Windows.Forms.Button guiBut_MainTagMake_Cc;
+        private System.Windows.Forms.Button guiBut_MainTagMake_To;
+        private System.Windows.Forms.Button guiBut_MainTagMake_Moto;
     }
 }
 

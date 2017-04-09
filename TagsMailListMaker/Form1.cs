@@ -23,6 +23,8 @@ namespace TagsMailListMaker
         string strExePath;
         string strXmlPath;
         DataSet dsDataBase;
+
+        /* データベース更新フラグ データベースに変更が生じたかを格納する */
         bool flg_DataBaseUpdate;
 
         /// <summary>
@@ -41,7 +43,10 @@ namespace TagsMailListMaker
             // タグタブを初期化
             InitializeTagTab();
             guiCob_MembersMain.SelectedIndex = 0;
+
+            /* データベース更新フラグをOFFで初期化 */
             flg_DataBaseUpdate = false;
+
         }
 
         /// <summary>
@@ -1427,6 +1432,7 @@ namespace TagsMailListMaker
                     guiTeb_EditAddress.Text = string.Empty;
                     guiList_NameRegistTag.Items.Clear();
                     InitializeMemberTab();
+                    InitializeTagTab();
                     flg_DataBaseUpdate = true;
                 }
             }
@@ -1465,6 +1471,8 @@ namespace TagsMailListMaker
                     InitializeTagTab();
                     // メインtabを初期化
                     initializeMainTab();
+                    InitializeMemberTab();
+                    InitializeTagTab();
                     flg_DataBaseUpdate = true;
                 }
             }
@@ -1580,6 +1588,121 @@ namespace TagsMailListMaker
                 InitializeTagTab();
                 initializeMainTab();
             }
+        }
+
+        /// <summary>
+        /// 最前面表示切替
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void guiChck_AlwayFront_CheckedChanged(object sender, EventArgs e)
+        {
+            this.TopMost = guiChck_AlwayFront.Checked;
+        }
+
+        private void registerNewTag_OnMainTag(ListBox argLB)
+        {
+            CreateTagGroup ctg_form;
+            List<string> lst_kizon;
+            DataRow[] drKizonTag;
+
+            if (argLB.Items.Count == 0)
+            {
+                MessageBox.Show("リストにメンバーが格納されていません。\r\nメンバーを追加してください。", "空リストエラー");
+                return;
+            }
+
+            lst_kizon = new List<string>();
+            drKizonTag = lib_XmlLINQ.seleceLINQ(dsDataBase, "Tags");
+            for (int i = 0; i < drKizonTag.Length; i++)
+            {
+                lst_kizon.Add( drKizonTag[i]["Tag"].ToString() );
+            }
+            lst_kizon.Add(CONST_STR_NEWREGISTER);
+            ctg_form = new CreateTagGroup();
+
+            ctg_form.setKizonTag(lst_kizon);
+            ctg_form.ShowDialog();
+
+            if (ctg_form.result == true)
+            {
+                DataRow newTagRow;
+                DataRow newGroupRow;
+                string strNewTagName = ctg_form.strNewTag;
+                newTagRow = dsDataBase.Tables["Tags"].NewRow();
+                newTagRow["Tag"] = strNewTagName;
+                newTagRow["Sort"] = dsDataBase.Tables["Tags"].Rows.Count;
+                dsDataBase.Tables["Tags"].Rows.Add(newTagRow);
+
+                for (int iLoop = 0; iLoop < argLB.Items.Count; iLoop++)
+                {
+                    newGroupRow = dsDataBase.Tables["Groups"].NewRow();
+                    newGroupRow["Tag"] = strNewTagName;
+                    newGroupRow["Name"] = argLB.Items[iLoop].ToString();
+                    dsDataBase.Tables["Groups"].Rows.Add(newGroupRow);
+                }
+
+                // 条件1~5にまつわるコンボボックスの項目を再設定する
+                make_TagPullDown(guiCmb_TagCondition1);
+                make_TagPullDown(guiCmb_TagCondition2);
+                make_TagPullDown(guiCmb_TagCondition3);
+                make_TagPullDown(guiCmb_TagCondition4);
+                make_TagPullDown(guiCmb_TagCondition5);
+
+
+                // 条件1~5にまつわるコントロールをデフォルト状態に戻す
+                guiChb_UseCon1.Checked = false;
+                guiCmb_TagCondition1.SelectedIndex = -1;
+                guiCmb_TagCondition1.Enabled = false;
+                guiBtn_TagYesNo1.Text = CONST_STR_INCLUDE;
+
+                guiChb_UseCon2.Checked = false;
+                guiCmb_TagCondition2.SelectedIndex = -1;
+                guiCmb_TagCondition2.Enabled = false;
+                guiBtn_TagYesNo2.Text = CONST_STR_INCLUDE;
+
+                guiChb_UseCon3.Checked = false;
+                guiCmb_TagCondition3.SelectedIndex = -1;
+                guiCmb_TagCondition3.Enabled = false;
+                guiBtn_TagYesNo3.Text = CONST_STR_INCLUDE;
+
+                guiChb_UseCon4.Checked = false;
+                guiCmb_TagCondition4.SelectedIndex = -1;
+                guiCmb_TagCondition4.Enabled = false;
+                guiBtn_TagYesNo4.Text = CONST_STR_INCLUDE;
+
+                guiChb_UseCon5.Checked = false;
+                guiCmb_TagCondition5.SelectedIndex = -1;
+                guiCmb_TagCondition5.Enabled = false;
+                guiBtn_TagYesNo5.Text = CONST_STR_INCLUDE;
+
+                flg_DataBaseUpdate = true;
+                // メンバータブを初期化
+                InitializeMemberTab();
+                // タグタブを初期化
+                InitializeTagTab();
+            }
+
+        }
+
+        private void guiBut_MainTagMake_Moto_Click(object sender, EventArgs e)
+        {
+            registerNewTag_OnMainTag(guiList_MotoList);
+        }
+
+        private void guiBut_MainTagMake_To_Click(object sender, EventArgs e)
+        {
+            registerNewTag_OnMainTag(guiList_ToMember);
+        }
+
+        private void guiBut_MainTagMake_Cc_Click(object sender, EventArgs e)
+        {
+            registerNewTag_OnMainTag(guiList_CcMember);
+        }
+
+        private void guiBtn_MemberSleep_Click(object sender, EventArgs e)
+        {
+
         }
 
     }
