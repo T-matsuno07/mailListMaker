@@ -50,16 +50,16 @@ namespace TagsMailListMaker
         /// <param name="argCB">全タグを設定したいコンボボックス</param>
         private void make_TagPullDown(ComboBox argCB)
         {
-            DataTable dtTagTable;  // Tagsテーブル
+            DataRow[] drAllTags;   // 全てのTagsテーブルのレコードを格納する
             argCB.Items.Clear();   // 引数で受け取ったコンボボックスの項目を初期化
 
             // データセットからTagsテーブルを抽出
-            dtTagTable = dsDataBase.Tables["Tags"];
+            drAllTags = lib_XmlLINQ.seleceLINQ(dsDataBase, "Tags", "", "Sort");
 
             // レコードからタグ名称を抽出してコンボボックスの項目に追加
-            for (int i = 0; i < dtTagTable.Rows.Count; i++)
+            for (int i = 0; i < drAllTags.Length; i++)
             {
-                argCB.Items.Add(dtTagTable.Rows[i]["Tag"].ToString());
+                argCB.Items.Add(drAllTags[i]["Tag"].ToString());
             }
 
         }
@@ -106,8 +106,12 @@ namespace TagsMailListMaker
             guiChb_UseConStr.Enabled = false;
             guiChb_UseConStr.Checked = false;
             guiTxB_StrCondition.Enabled = false;
-            guiTxB_StrCondition.Text = "";
+            guiTxB_StrCondition.Text = "未実装";
             guiBtn_MotoListByString.Enabled = false;
+
+            guiList_MotoList.Items.Clear();
+            guiList_ToMember.Items.Clear();
+            guiList_CcMember.Items.Clear();
         }
 
         /// <summary>
@@ -125,7 +129,7 @@ namespace TagsMailListMaker
             bool bl_con1, bl_con2, bl_con3, bl_con4, bl_con5;
             DataRow[] AllName;
             string workName;
-            AllName = lib_XmlLINQ.seleceLINQ(dsDataBase, "Names");
+            AllName = lib_XmlLINQ.seleceLINQ(dsDataBase, "Names", "", "Sort");
 
             // メインタブにおける一番左下のリストボックスを初期化
             guiList_MotoList.Items.Clear();
@@ -273,7 +277,7 @@ namespace TagsMailListMaker
             }
 
             // Namesテーブルに含まれる全ての名称を取得する
-            AllName = lib_XmlLINQ.seleceLINQ(dsDataBase, "Names");
+            AllName = lib_XmlLINQ.seleceLINQ(dsDataBase, "Names", "", "Sort");
 
             // 条件を「使用する」のチェックボックスがONか？
             if (chb_Active.Checked == true)
@@ -617,7 +621,7 @@ namespace TagsMailListMaker
             guiCob_MembersMotoMem.Items.Clear();
             guiCob_MembersMotoMem.Items.Add(CONST_STR_ALLTAG);
 
-            dr_AllTags = lib_XmlLINQ.seleceLINQ(dsDataBase, "Names");
+            dr_AllTags = lib_XmlLINQ.seleceLINQ(dsDataBase, "Names","", "Sort");
             for (int iLoop = 0; iLoop < dr_AllTags.Length; iLoop++)
             {
                 guiCob_MembersMain.Items.Add(dr_AllTags[iLoop]["Name"].ToString());
@@ -625,7 +629,7 @@ namespace TagsMailListMaker
             }
 
             guiList_CopyMotoTag.Items.Clear();
-            dr_AllTags = lib_XmlLINQ.seleceLINQ(dsDataBase, "Tags");
+            dr_AllTags = lib_XmlLINQ.seleceLINQ(dsDataBase, "Tags", "", "Sort");
             for (int iLoop = 0; iLoop < dr_AllTags.Length; iLoop++)
             {
                 guiList_CopyMotoTag.Items.Add(dr_AllTags[iLoop]["Tag"].ToString());
@@ -674,7 +678,7 @@ namespace TagsMailListMaker
             guiCob_TagMotoMem.Items.Clear();
             guiCob_TagMotoMem.Items.Add(CONST_STR_ALLTAG);
 
-            dr_AllTags = lib_XmlLINQ.seleceLINQ(dsDataBase, "Tags");
+            dr_AllTags = lib_XmlLINQ.seleceLINQ(dsDataBase, "Tags", "", "Sort");
             for (int iLoop = 0; iLoop < dr_AllTags.Length; iLoop++)
             {
                 guiCob_TagsMain.Items.Add(dr_AllTags[iLoop]["Tag"].ToString());
@@ -682,7 +686,7 @@ namespace TagsMailListMaker
             }
 
             guiList_TagRegistMoto.Items.Clear();
-            dr_AllTags = lib_XmlLINQ.seleceLINQ(dsDataBase, "Names");
+            dr_AllTags = lib_XmlLINQ.seleceLINQ(dsDataBase, "Names", "", "Sort");
             for (int iLoop = 0; iLoop < dr_AllTags.Length; iLoop++)
             {
                 guiList_TagRegistMoto.Items.Add(dr_AllTags[iLoop]["Name"].ToString());
@@ -725,6 +729,7 @@ namespace TagsMailListMaker
             newNamesRow = dsDataBase.Tables["Names"].NewRow();
             newNamesRow["Name"] = guiTeb_EditName.Text;
             newNamesRow["Address"] = guiTeb_EditAddress.Text;
+            newNamesRow["Sort"] = dsDataBase.Tables["Names"].Rows.Count - 1;
             dsDataBase.Tables["Names"].Rows.Add(newNamesRow);
 
             for (int iLoop = 0; iLoop < guiList_NameRegistTag.Items.Count; iLoop++)
@@ -746,6 +751,7 @@ namespace TagsMailListMaker
             DataRow newGroupRow;
             newTagRow = dsDataBase.Tables["Tags"].NewRow();
             newTagRow["Tag"] = guiTeb_EditTag.Text;
+            newTagRow["Sort"] = dsDataBase.Tables["Tags"].Rows.Count;
             dsDataBase.Tables["Tags"].Rows.Add(newTagRow);
 
             for (int iLoop = 0; iLoop < guiList_TagRegistSaki.Items.Count; iLoop++)
@@ -768,7 +774,7 @@ namespace TagsMailListMaker
             string strTargetName;
             strTargetName = guiCob_MembersMain.SelectedItem.ToString();
 
-            updateNamesRow = lib_XmlLINQ.seleceLINQ(dsDataBase,"Names", "Name = '"+ strTargetName+"'"); //dsDataBase.Tables["Names"].NewRow();
+            updateNamesRow = lib_XmlLINQ.seleceLINQ(dsDataBase,"Names", "Name = '"+ strTargetName+"'"); 
             updateNamesRow[0]["Name"] = guiTeb_EditName.Text;
             updateNamesRow[0]["Address"] = guiTeb_EditAddress.Text;
 
@@ -794,7 +800,7 @@ namespace TagsMailListMaker
             string strTargetName;
             strTargetName = guiCob_TagsMain.SelectedItem.ToString();
 
-            updateTagsRow = lib_XmlLINQ.seleceLINQ(dsDataBase, "Tags", "Tag = '" + strTargetName + "'"); //dsDataBase.Tables["Names"].NewRow();
+            updateTagsRow = lib_XmlLINQ.seleceLINQ(dsDataBase, "Tags", "Tag = '" + strTargetName + "'"); 
             updateTagsRow[0]["Tag"] = guiTeb_EditTag.Text;
 
             lib_XmlLINQ.deleteLINQ(dsDataBase, "Groups", "Tag = '" + strTargetName + "'");
@@ -1177,7 +1183,7 @@ namespace TagsMailListMaker
             guiList_CopyMotoTag.Items.Clear();
             if (strSelectedName == CONST_STR_ALLTAG)
             {
-                dr_AllTags = lib_XmlLINQ.seleceLINQ(dsDataBase, "Tags");
+                dr_AllTags = lib_XmlLINQ.seleceLINQ(dsDataBase, "Tags", "", "Sort");
                 for (int iLoop = 0; iLoop < dr_AllTags.Length; iLoop++)
                 {
                     guiList_CopyMotoTag.Items.Add(dr_AllTags[iLoop]["Tag"].ToString());
@@ -1304,6 +1310,7 @@ namespace TagsMailListMaker
             flg_DataBaseUpdate = true;
             // メンバータグを初期化
             InitializeMemberTab();
+            initializeMainTab();
 
         }
 
@@ -1530,6 +1537,8 @@ namespace TagsMailListMaker
                     drMembers[0]["Sort"] = iNewSort;
                 }
                 flg_DataBaseUpdate = true;
+                InitializeMemberTab();
+                initializeMainTab();
             }
         }
 
@@ -1540,12 +1549,36 @@ namespace TagsMailListMaker
         /// <param name="e"></param>
         private void guiBtn_TagChangeSort_Click(object sender, EventArgs e)
         {
+            DataRow[] drTags;
+            List<string> originTags;
+            List<string> sortedTags;
+            string tmpName;
             SortItemsForm sortForm = new SortItemsForm();
+            originTags = new List<string>();
+            drTags = lib_XmlLINQ.seleceLINQ(dsDataBase, "Tags", "", "Sort");
+
+
+            for (int i = 0; i < drTags.Length; i++)
+            {
+                originTags.Add(drTags[i]["Tag"].ToString());
+            }
+            sortForm.SetOriginalItemList(originTags);
+
+
             sortForm.ShowDialog();
 
             if (sortForm.ResultRetrun == true)
             {
-                MessageBox.Show("決定が実行されました");
+                sortedTags = sortForm.getResult();
+                for (int iNewSort = 0; iNewSort < sortedTags.Count; iNewSort++)
+                {
+                    tmpName = sortedTags[iNewSort];
+                    drTags = lib_XmlLINQ.seleceLINQ(dsDataBase, "Tags", "[Tag] = '" + tmpName + "'");
+                    drTags[0]["Sort"] = iNewSort;
+                }
+                flg_DataBaseUpdate = true;
+                InitializeTagTab();
+                initializeMainTab();
             }
         }
 
