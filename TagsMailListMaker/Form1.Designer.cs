@@ -747,6 +747,7 @@
             this.guiBtn_MemberDelete.TabIndex = 27;
             this.guiBtn_MemberDelete.Text = "削除";
             this.guiBtn_MemberDelete.UseVisualStyleBackColor = true;
+            this.guiBtn_MemberDelete.Click += new System.EventHandler(this.guiBtn_MemberDelete_Click);
             // 
             // guiBtn_MmberDeleteTagItem
             // 

@@ -1438,9 +1438,12 @@ namespace TagsMailListMaker
                     guiTeb_EditName.Text = string.Empty;
                     guiTeb_EditAddress.Text = string.Empty;
                     guiList_NameRegistTag.Items.Clear();
+
+                    // 各tabを初期化
                     InitializeMemberTab();
                     InitializeTagTab();
                     flg_DataBaseUpdate = true;
+                    
                 }
             }
             else
@@ -1451,11 +1454,13 @@ namespace TagsMailListMaker
                 {
                     lib_XmlLINQ.deleteLINQ(dsDataBase, "Names", "Name = '" + strDeleteName + "'");
                     lib_XmlLINQ.deleteLINQ(dsDataBase, "Groups", "Name = '" + strDeleteName + "'");
-                    InitializeMemberTab();
-                    flg_DataBaseUpdate = true;
-
                     InitializeTagTab();
-                    guiCob_TagMotoMem_SelectedIndexChanged(sender, e);
+                    // 各tabを初期化
+                    initializeMainTab();
+                    InitializeMemberTab();
+                    InitializeTagTab();
+                    flg_DataBaseUpdate = true;
+                    guiCob_MembersMotoMem_SelectedIndexChanged(sender, e);
                 }
             }
         }
@@ -1479,11 +1484,9 @@ namespace TagsMailListMaker
                     guiTeb_EditTag.Text = string.Empty;
                     guiList_TagRegistSaki.Items.Clear();
 
-                    // メインtabを初期化
-                    initializeMainTab();
+                    // 各tabを初期化
                     InitializeMemberTab();
                     InitializeTagTab();
-                    flg_DataBaseUpdate = true;
                     guiCob_MembersMotoMem_SelectedIndexChanged(sender,e);
                 }
             }
@@ -1496,10 +1499,8 @@ namespace TagsMailListMaker
                     lib_XmlLINQ.deleteLINQ(dsDataBase, "Tags", "Tag = '" + strDeleteName + "'");
                     lib_XmlLINQ.deleteLINQ(dsDataBase, "Groups", "Tag = '" + strDeleteName + "'");
                     InitializeTagTab();
-                    // メインtabを初期化
+                    // 各tabを初期化
                     initializeMainTab();
-                    flg_DataBaseUpdate = true;
-                    // メインtabを初期化
                     InitializeMemberTab();
                     InitializeTagTab();
                     flg_DataBaseUpdate = true;
@@ -1509,8 +1510,6 @@ namespace TagsMailListMaker
 
 
         }
-
-
 
         /// <summary>
         ///
@@ -1730,6 +1729,9 @@ namespace TagsMailListMaker
                 e.Cancel = true;
             }
         }
+
+
+
 
     }
 }
