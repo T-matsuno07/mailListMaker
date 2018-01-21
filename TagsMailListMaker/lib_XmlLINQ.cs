@@ -69,13 +69,22 @@ namespace TagsMailListMaker
             try
             {
                 // 第2引数で指定されたフォルダに格納されているxsdファイルのリストを取得
-                fileNameList = System.IO.Directory.GetFiles(exportFolderPath, "*", System.IO.SearchOption.AllDirectories);
-                // 保存先フォルダに存在する既存のファイルを削除する
+                fileNameList = System.IO.Directory.GetFiles(exportFolderPath, "*.xsd", System.IO.SearchOption.AllDirectories);
+                // 保存先フォルダに存在する既存のxsdファイルを削除する
                 for (int iLoop = 0; iLoop < fileNameList.Length; iLoop++)
                 {
                     // 1ファイルずつ削除していく
                     System.IO.File.Delete(fileNameList[iLoop] );
                 }
+                // 第2引数で指定されたフォルダに格納されているxmlファイルのリストを取得
+                fileNameList = System.IO.Directory.GetFiles(exportFolderPath, "*.xml", System.IO.SearchOption.AllDirectories);
+                // 保存先フォルダに存在する既存のxmlファイルを削除する
+                for (int iLoop = 0; iLoop < fileNameList.Length; iLoop++)
+                {
+                    // 1ファイルずつ削除していく
+                    System.IO.File.Delete(fileNameList[iLoop]);
+                }
+
 
                 // データセットに含まれるテーブル単位でファイルへの書き込みを実施する
                 for (int iTableLoop = 0; iTableLoop < argDS.Tables.Count; iTableLoop++)
